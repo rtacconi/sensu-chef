@@ -37,9 +37,9 @@ directory node.sensu.log_directory do
   recursive true
   mode 0750
 end
-  
+
 directory File.join(node.sensu.directory, "conf.d") do
-  owner "root"
+  owner "sensu"
   group "sensu"
   recursive true
   mode 0750
