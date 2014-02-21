@@ -2,14 +2,14 @@ action :create do
   unless Sensu::JSONFile.compare_content(new_resource.path, new_resource.content)
     directory ::File.dirname(new_resource.path) do
       recursive true
-      owner new_resource.owner
-      owner new_resource.group
+      owner node['sensu']['admin']
+      group "sensu"
       mode 0750
     end
 
     f = file new_resource.path do
-      owner new_resource.owner
-      group new_resource.group
+      owner node['sensu']['admin']
+      group "sensu"
       mode new_resource.mode
       content Sensu::JSONFile.dump_json(new_resource.content)
       notifies :create, "ruby_block[sensu_service_trigger]", :delayed
